@@ -58,7 +58,7 @@ public class EmployeeRepository {
     }
 
     public List<Employee> getAllEmployee() {
-        return entityManager.createNamedQuery("Employee.findAll", Employee.class)
+        return entityManager.createNamedQuery("Employee.getAll", Employee.class)
                 .setParameter(1, EmployeeStatus.ACTIVE)
                 .getResultList();
     }
