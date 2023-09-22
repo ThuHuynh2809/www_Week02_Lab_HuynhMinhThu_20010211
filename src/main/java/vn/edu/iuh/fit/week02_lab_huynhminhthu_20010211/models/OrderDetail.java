@@ -76,8 +76,7 @@ public class OrderDetail {
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "orderDetailPK=" + orderDetailPK +
-                ", quantily=" + quantily +
+                "quantily=" + quantily +
                 ", price=" + price +
                 ", note='" + note + '\'' +
                 ", order=" + order +

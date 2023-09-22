@@ -38,16 +38,14 @@ public class EmployeeResources {
         return Response.ok(lst).build();
     }
 
-    @POST
+
     @Produces("application/json")
     @Consumes("application/json")
     public Response insert(Employee employee) {
-        //ResponseEntity
         employeeServices.insertEmp(employee);
         return Response.ok(employee).build();
     }
 
-    @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") long id) {
         if (employeeServices.delete(id))
