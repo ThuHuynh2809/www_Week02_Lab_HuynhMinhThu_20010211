@@ -17,7 +17,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "emp_id", nullable = false)
-    private Employeee employeee;
+    private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "cust_id", nullable = false)
@@ -32,7 +32,7 @@ public class Order {
     public Order(long order_Id, LocalDateTime orderDate, Employee employee, Customer customer){
         this.order_Id = order_Id;
         this.orderDate = orderDate;
-        this.employeee = employee;
+        this.employee = employee;
         this.customer = customer;
     }
 
@@ -52,12 +52,12 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Employeee getEmployeee() {
-        return employeee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeee(Employeee employeee) {
-        this.employeee = employeee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Customer getCustomer() {
@@ -81,7 +81,7 @@ public class Order {
         return "Order{" +
                 "order_Id=" + order_Id +
                 ", orderDate=" + orderDate +
-                ", employeee=" + employeee +
+                ", employee=" + employee +
                 ", customer=" + customer +
                 ", orderDetails=" + orderDetails +
                 '}';

@@ -1,8 +1,8 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.main;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.test;
 
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.repositories.MySessionFactory;
 
-public class main {
+public class test {
     public static void main(String[] args){
         MySessionFactory.getInstance();
     }

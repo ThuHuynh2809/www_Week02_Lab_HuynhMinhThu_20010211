@@ -7,7 +7,7 @@ public class ConnectDB {
     private static ConnectDB instance;
     private EntityManagerFactory entityManagerFactory;
     private ConnectDB(){
-        entityManagerFactory = Persistence.createEntityManagerFactory("lab_weed2");
+        entityManagerFactory = Persistence.createEntityManagerFactory("www_lab02");
 
     }
     public static ConnectDB getInstance() {

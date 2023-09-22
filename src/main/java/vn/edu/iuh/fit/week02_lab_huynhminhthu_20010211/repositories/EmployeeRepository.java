@@ -2,10 +2,15 @@ package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Employee;
+
+import java.util.List;
+import java.util.Optional;
 
 public class EmployeeRepository {
     private EntityManager entityManager;
@@ -48,7 +53,7 @@ public class EmployeeRepository {
     public Optional<Employee> findById(long id) {
         TypedQuery<Employee> typedQuery = entityManager.createQuery("select e from Employee e where e.id=:id", Employee.class);
         typedQuery.setParameter("id", id);
-        Employee employee = query.getSingleResult();
+        Employee employee = typedQuery.getSingleResult();
         return employee == null ? Optional.empty() : Optional.of(employee);
     }
 
