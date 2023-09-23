@@ -3,23 +3,17 @@
 <%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Employee" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.repositories.ProductRepository" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Product" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.ProductStatus" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.ProductImage" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Huynh Minh Thu</title>
 </head>
 <body>
 <%
-    EmployeeRepository repository = new EmployeeRepository();
-    Employee employee = new Employee("Thu", LocalDateTime.now(), "thu" + System.currentTimeMillis() + "@mail.com",
-            "28092002", "1190 pvd", EmployeeStatus.ACTIVE);
+    EmployeeRepository repository =  new EmployeeRepository();
+    Employee employee = new Employee("Thu", LocalDateTime.now(), "thu@gmail.com","093934848","1190 pvd", EmployeeStatus.ACTIVE);
     repository.insertEmployee(employee);
-    out.print(employee);
-
+    out.println(employee);
 %>
 </body>
 </html>

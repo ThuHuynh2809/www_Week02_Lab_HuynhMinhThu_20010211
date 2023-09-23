@@ -19,7 +19,7 @@ public class EmployeeRepository {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     public EmployeeRepository() {
         entityManager = Persistence
-                .createEntityManagerFactory("www_lab02")
+                .createEntityManagerFactory("lab_week_2")
                 .createEntityManager();
         entityTransaction = entityManager.getTransaction();
     }
