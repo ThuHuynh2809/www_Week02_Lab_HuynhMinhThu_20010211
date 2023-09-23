@@ -9,7 +9,7 @@
     <title>Huynh Minh Thu</title>
 </head>
 <body>
-<%
+<%=
     EmployeeRepository repository =  new EmployeeRepository();
     Employee employee = new Employee("Thu", LocalDateTime.now(), "thu@gmail.com","093934848","1190 pvd", EmployeeStatus.ACTIVE);
     repository.insertEmployee(employee);
