@@ -1,19 +1,17 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.repositories.EmployeeRepository" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Employee" %>
-<%@ page import="java.time.LocalDateTime" %>
-<%@ page import="vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus" %>
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: huynh
+  Date: 9/29/2023
+  Time: 7:26 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Huynh Minh Thu</title>
+    <title>Index</title>
 </head>
 <body>
-<%=
-    EmployeeRepository repository =  new EmployeeRepository();
-    Employee employee = new Employee("Thu", LocalDateTime.now(), "thu@gmail.com","093934848","1190 pvd", EmployeeStatus.ACTIVE);
-    repository.insertEmployee(employee);
-    out.println(employee);
-%>
+<a href="InsertEmp.jsp">Insert new Employee</a><br/>
+<a href="InsertCust.jsp">Insert new Customer</a><br/>
 </body>
 </html>

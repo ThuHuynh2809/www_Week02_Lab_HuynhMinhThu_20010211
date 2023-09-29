@@ -1,11 +1,13 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus;
+import org.joda.time.LocalDate;
+import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
@@ -17,7 +19,9 @@ public class Employee {
     @Column(name = "full_name", length = 100, nullable = false)
     private String fullName;
     @Column(name = "dob", nullable = false)
-    private LocalDateTime dob;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dob;
     @Column(name ="email", length = 150, unique = true)
     private String email;
     @Column(name = "phone", length = 20, nullable = false)
@@ -30,10 +34,10 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    public Employee(){
+    public Employee(String name, java.time.LocalDate dob, String email, String phone, String address, EmployeeStatus status){
 
     }
-    public Employee(String fullName, LocalDateTime dob, String email, String phone, String address, EmployeeStatus status){
+    public Employee(String fullName, LocalDate dob, String email, String phone, String address, EmployeeStatus status){
         this.fullName = fullName;
         this.dob = dob;
         this.email = email;
@@ -41,6 +45,7 @@ public class Employee {
         this.address = address;
         this.status = status;
     }
+
     public long getEmpId() {
         return empId;
     }
@@ -57,11 +62,11 @@ public class Employee {
         this.fullName = fullName;
     }
 
-    public LocalDateTime getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(LocalDateTime dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
@@ -116,18 +121,6 @@ public class Employee {
                 ", address='" + address + '\'' +
                 ", status=" + status +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return empId == employee.empId;
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(empId);
     }
 }
 

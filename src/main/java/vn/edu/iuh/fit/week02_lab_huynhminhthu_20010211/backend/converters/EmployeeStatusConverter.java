@@ -1,7 +1,7 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.converters;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.converters;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus;
+import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
 import java.util.stream.Stream;
 @Converter(autoApply = true)
 public class EmployeeStatusConverter implements

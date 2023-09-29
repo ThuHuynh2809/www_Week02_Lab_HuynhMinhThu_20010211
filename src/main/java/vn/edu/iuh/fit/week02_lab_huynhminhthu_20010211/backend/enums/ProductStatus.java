@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums;
 
 public enum ProductStatus {
     ACTIVE(1),IN_ACTIVE(0),TERMINATED(-1);

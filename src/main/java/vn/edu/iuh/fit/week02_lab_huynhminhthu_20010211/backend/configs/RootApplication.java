@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.configs;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.configs;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

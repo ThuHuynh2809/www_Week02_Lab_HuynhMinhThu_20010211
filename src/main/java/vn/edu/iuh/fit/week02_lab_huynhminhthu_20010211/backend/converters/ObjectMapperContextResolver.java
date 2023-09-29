@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.converters;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.converters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.ws.rs.ext.ContextResolver;

@@ -1,9 +1,8 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.services;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.services;
 
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.enums.EmployeeStatus;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Employee;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models.Order;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.repositories.EmployeeRepository;
+import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
+import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models.Employee;
+import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.repositories.EmployeeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,15 +13,15 @@ public class EmployeeServices {
         employeeRepository = new EmployeeRepository();
     }
     public List<Employee> getAll(){
-        return employeeRepository.getAllEmployee();
+        return employeeRepository.getAllEmp();
     }
     public Optional<Employee> findById(long id){
         return employeeRepository.findById(id);
     }
-    public void insertEmployee(Employee employee){
-        employeeRepository.insertEmployee(employee);
+    public void insertEmp(Employee employee){
+        employeeRepository.insertEmp(employee);
     }
-    public boolean deleteEmployee(long id){
+    public boolean deleteEmp(long id){
         Optional<Employee> optionalEmployee = findById(id);
         if(optionalEmployee.isPresent()){
             Employee employee = optionalEmployee.get();
@@ -31,7 +30,7 @@ public class EmployeeServices {
         }
         return false;
     }
-    public boolean activeEmployee(long id){
+    public boolean activeEmp(long id){
         Optional<Employee> optionalEmployee = findById(id);
         if(optionalEmployee.isPresent()){
             Employee employee = optionalEmployee.get();

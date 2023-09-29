@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseToolSources">
+    <data-source name="localhost" uuid="b98a7241-cc47-4321-a32c-c72bd154a8f0" type="MYSQL">
+      <base-info connect-type="DB_DEFAULT" product="MySQL" version="11.1.2-MariaDB" jdbc-name="MySQL Connector/J" jdbc-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" />
+      <user-name>root</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="lab_week_2" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <url>jdbc:mysql://localhost:3306/lab_week_2?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok?useSSL=false&amp;serverTimezone=Asia/Bangkok</url>
+      <remarks />
+      <vm-options />
+      <driver-info id="mysql8" />
+      <ssh-properties enabled="false" />
+      <jdbc-additional-properties>
+        <property name="characterSetResults" value="utf8" />
+        <property name="zeroDateTimeBehavior" value="CONVERT_TO_NULL" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="useTimezone" value="true" />
+        <property name="yearIsDateType" value="false" />
+      </jdbc-additional-properties>
+      <ssl-config enabled="false">
+        <uuid />
+        <caFile />
+        <clientCertificateFile />
+        <clientKeyFile />
+        <sslMode>REQUIRE</sslMode>
+      </ssl-config>
+    </data-source>
+  </component>
+</project>

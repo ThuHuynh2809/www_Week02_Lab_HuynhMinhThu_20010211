@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
 import jakarta.persistence.*;
 
@@ -23,14 +23,8 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orderList;
 
-    public Customer(){
+    public Customer(String name, String email, String phone, String address){
 
-    }
-    public Customer(String custName, String email, String phone, String address){
-        this.custName = custName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
     }
 
     public long getCust_Id() {
@@ -64,9 +58,11 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -87,6 +83,7 @@ public class Customer {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", orderList=" + orderList +
                 '}';
     }
 }

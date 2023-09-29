@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.28'
     //for access DB
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
+    implementation 'org.eclipse.persistence:eclipselink:4.0.2'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
     implementation 'org.hibernate:hibernate-core:6.3.0.Final'
 

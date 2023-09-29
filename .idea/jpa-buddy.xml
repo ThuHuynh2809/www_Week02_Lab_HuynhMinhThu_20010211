@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="maria">
+    <option name="sourceDiffType" value="DB" />
+    <option name="renamerInitialized" value="true" />
+    <option name="sourceDbValue" value="910c1459-e4cf-4aad-a53e-2667143df493" />
+    <option name="targetDbValue" value="910c1459-e4cf-4aad-a53e-2667143df493" />
+    <option name="isSnapshotDb" value="false" />
+    <option name="snapshotDbValue" value="910c1459-e4cf-4aad-a53e-2667143df493" />
+    <option name="snapshotModelValue" value="Default" />
+    <option name="newEntityIdStrategy" />
+  </component>
+</project>

@@ -1,9 +1,13 @@
-package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.models;
+package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+
 
 @Entity
 @Table(name = "order")
@@ -13,7 +17,9 @@ public class Order {
     @Column(name = "order_id")
     private long order_Id;
     @Column(name = "order_date", nullable = false)
-    private LocalDateTime orderDate;
+    @JsonFormat(shape =JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate orderDate;
 
     @ManyToOne
     @JoinColumn(name = "emp_id", nullable = false)
@@ -29,11 +35,13 @@ public class Order {
     public Order(){
 
     }
-    public Order(long order_Id, LocalDateTime orderDate, Employee employee, Customer customer){
+
+    public Order(long order_Id, LocalDate orderDate, Employee employee, Customer customer, List<OrderDetail> orderDetails) {
         this.order_Id = order_Id;
         this.orderDate = orderDate;
         this.employee = employee;
         this.customer = customer;
+        this.orderDetails = orderDetails;
     }
 
     public long getOrder_Id() {
@@ -44,11 +52,11 @@ public class Order {
         this.order_Id = order_Id;
     }
 
-    public LocalDateTime getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
