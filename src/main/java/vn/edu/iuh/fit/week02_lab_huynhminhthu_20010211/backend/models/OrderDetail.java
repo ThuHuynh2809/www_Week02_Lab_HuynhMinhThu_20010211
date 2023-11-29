@@ -2,50 +2,60 @@ package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "orderDetail")
-public class OrderDetail {
+import java.util.Objects;
 
-    @Column(name = "quantily", nullable = false)
-    private long quantily;
-    @Column(name = "price",nullable = false)
-    private double price;
-    @Column(name = "note",length = 255, nullable = false)
+
+@Entity
+@Table(name = "order_detail")
+public class OrderDetail {
+    @Column(name = "quantity", columnDefinition = "double")
+    private Double quantity;
+
+    @Column(name = "price", columnDefinition = "double")
+    private Double price;
+
+    @Column(name = "note", columnDefinition = "varchar(250)")
     private String note;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
     @Id
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderDetail(){
-
+    public OrderDetail() {
     }
-    public OrderDetail(long quantily, double price, String note, Order order, Product product){
-        this.quantily = quantily;
+
+    public OrderDetail(Order order, Product product) {
+        this.order = order;
+        this.product = product;
+    }
+
+    public OrderDetail(Double quantity, Double price, String note, Order order, Product product) {
+        this.quantity = quantity;
         this.price = price;
         this.note = note;
         this.order = order;
         this.product = product;
     }
 
-    public long getQuantily() {
-        return quantily;
+    public Double getQuantity() {
+        return quantity;
     }
 
-    public void setQuantily(long quantily) {
-        this.quantily = quantily;
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -76,11 +86,26 @@ public class OrderDetail {
     @Override
     public String toString() {
         return "OrderDetail{" +
-                "quantily=" + quantily +
+                "quantity=" + quantity +
                 ", price=" + price +
                 ", note='" + note + '\'' +
-                ", order=" + order +
+                ", orders=" + order +
                 ", product=" + product +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof OrderDetail))
+            return false;
+        OrderDetail that = (OrderDetail) o;
+        return Objects.equals(order, that.order) && Objects.equals(product, that.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, product);
     }
 }

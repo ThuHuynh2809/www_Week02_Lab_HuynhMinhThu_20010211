@@ -5,42 +5,60 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cust_id")
-    private long cust_Id;
-    @Column(name = "cust_name", length = 100, nullable = false)
-    private String custName;
-    @Column(name = "email", length = 150, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "cust_name", columnDefinition = "varchar(250)")
+    private String name;
+
+    @Column(name = "email", columnDefinition = "varchar(150)")
     private String email;
-    @Column(name = "phone", length = 20, nullable = false)
+
+    @Column(name = "phone", columnDefinition = "varchar(15)")
     private String phone;
-    @Column(name = "address", length = 250, nullable = false)
+
+    @Column(name = "address", columnDefinition = "varchar(150)")
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orderList;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
 
-    public Customer(String name, String email, String phone, String address){
-
+    public Customer() {
     }
 
-    public long getCust_Id() {
-        return cust_Id;
+    public Customer(long id, String name, String email, String phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
     }
 
-    public void setCust_Id(long cust_Id) {
-        this.cust_Id = cust_Id;
+    public Customer(String name, String email, String phone, String address) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
     }
 
-    public String getCustName() {
-        return custName;
+    public long getId() {
+        return id;
     }
 
-    public void setCustName(String custName) {
-        this.custName = custName;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -67,23 +85,14 @@ public class Customer {
         this.address = address;
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
-                "cust_Id=" + cust_Id +
-                ", custName='" + custName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", orderList=" + orderList +
                 '}';
     }
 }

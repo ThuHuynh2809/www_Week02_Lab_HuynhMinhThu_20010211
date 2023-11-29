@@ -2,65 +2,128 @@ package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models.Customer;
-import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models.Employee;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CustomerRepository {
-    private EntityManager entityManager;
-    private EntityTransaction entityTransaction;
+    private EntityManager em = null;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     public CustomerRepository() {
-        entityManager = Persistence
-                .createEntityManagerFactory("lab_week_2")
-                .createEntityManager();
-        entityTransaction = entityManager.getTransaction();
+        this.em = DBConnect.getInstance().getEmf().createEntityManager();
     }
 
-    public void insertCust(Customer customer) {
+    public List<Customer> getAll() {
+        EntityTransaction tr = em.getTransaction();
         try {
-            entityTransaction.begin();
-            entityManager.persist(customer);
-            entityTransaction.commit();
+            tr.begin();
+
+            List<Customer> list = em.createNativeQuery("SELECT * from customer order by cust_name", Customer.class).getResultList();
+
+            tr.commit();
+            return list;
         } catch (Exception e) {
-            entityTransaction.rollback();
-            logger.error(e.getMessage());
+            tr.rollback();
         }
+        return null;
     }
 
-    public void setStatus(Employee employee, EmployeeStatus status) {
-        employee.setStatus(status);
-    }
 
-    public void updateCust(Customer customer) {
+    public Customer searchById(long id){
+        EntityTransaction tr = em.getTransaction();
         try {
-            entityTransaction.begin();
-            entityManager.merge(customer);
-            entityTransaction.commit();
-        } catch (Exception e) {
-            entityTransaction.rollback();
-            logger.error(e.getMessage());
+            tr.begin();
+
+            Customer customer = em.find(Customer.class, id);
+
+            tr.commit();
+            return customer;
+        } catch (Exception e){
+            tr.rollback();
         }
+        return null;
     }
 
-    public Optional<Customer> findById(long id) {
-        TypedQuery<Customer> typedQuery = entityManager.createQuery("select e from Customer e where e.id=:id", Customer.class);
-        typedQuery.setParameter("id", id);
-        Customer customer = typedQuery.getSingleResult();
-        return customer == null ? Optional.empty() : Optional.of(customer);
+
+    public List<Customer> getFromXToY(int x, int y){
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+
+            int from = y-x+1;
+            int to = x-1;
+
+            String sql = "SELECT * FROM customer ORDER BY cust_name LIMIT "+from +" OFFSET "+to;
+
+            List<Customer> list = em.createNativeQuery(sql, Customer.class).getResultList();
+
+            tr.commit();
+            return list;
+        } catch (Exception e){
+            tr.rollback();
+        }
+        return null;
     }
 
-    public List<Customer> getAllCust() {
-        return entityManager.createNamedQuery("Customer.getAll", Customer.class)
-                .setParameter(1, EmployeeStatus.ACTIVE)
-                .getResultList();
+    public boolean add(Customer customer){
+        EntityTransaction tr = em.getTransaction();
+        Customer temp = searchById(customer.getId());
+        try {
+            tr.begin();
+
+            em.merge(customer);
+
+            tr.commit();
+            return true;
+        } catch (Exception e){
+            tr.rollback();
+        }
+        return false;
+    }
+
+    public boolean updateField(long id, String nameField, String newValue){
+        EntityTransaction tr = em.getTransaction();
+        Customer customer = searchById(id);
+        if(customer==null) return false;
+        try {
+            tr.begin();
+            switch (nameField){
+                case "name":
+                    customer.setName(newValue);
+                    break;
+                case "email":
+                    customer.setEmail(newValue);
+                    break;
+                case "phone":
+                    customer.setPhone(newValue);
+                    break;
+                case "address":
+                    customer.setAddress(newValue);
+                    break;
+
+            }
+            tr.commit();
+            return true;
+        } catch (Exception e){
+            tr.rollback();
+        }
+        return false;
+    }
+
+    public boolean del(long id){
+        EntityTransaction tr = em.getTransaction();
+        Customer customer = searchById(id);
+        if(customer==null) return false;
+        try {
+            tr.begin();
+
+            em.remove(customer);
+
+            tr.commit();
+            return true;
+        } catch (Exception e){
+            tr.rollback();
+        }
+        return false;
     }
 }

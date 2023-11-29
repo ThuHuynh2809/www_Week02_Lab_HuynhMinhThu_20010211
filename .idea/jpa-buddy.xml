@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="maria">
     <option name="sourceDiffType" value="DB" />
+    <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
     <option name="sourceDbValue" value="910c1459-e4cf-4aad-a53e-2667143df493" />
     <option name="targetDbValue" value="910c1459-e4cf-4aad-a53e-2667143df493" />

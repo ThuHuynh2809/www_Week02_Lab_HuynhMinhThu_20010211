@@ -7,33 +7,42 @@ import jakarta.persistence.*;
 public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
-    private long image_Id;
+    @Column(name = "image_id", nullable = false)
+    private long image_id;
 
-    @Column(name = "path",nullable = false)
+    @Column(name = "path", columnDefinition = "varchar(250)")
     private String path;
 
-    @Column(name = "alternative")
+    @Column(name = "alternative", columnDefinition = "varchar(250)")
     private String alternative;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
-    public ProductImage(){
-
+    public ProductImage() {
     }
-    public ProductImage(String path, String alternative){
+
+    public ProductImage(long image_id, String path, String alternative, Product product) {
+        this.image_id = image_id;
         this.path = path;
         this.alternative = alternative;
+        this.product = product;
     }
 
-    public long getImage_Id() {
-        return image_Id;
+    public ProductImage(String path, String alternative, Product product) {
+        this.path = path;
+        this.alternative = alternative;
+        this.product = product;
     }
 
-    public void setImage_Id(long image_Id) {
-        this.image_Id = image_Id;
+    public long getImage_id() {
+        return image_id;
+    }
+
+    public void setImage_id(long image_id) {
+        this.image_id = image_id;
     }
 
     public String getPath() {
@@ -62,11 +71,8 @@ public class ProductImage {
 
     @Override
     public String toString() {
-        return "ProductImage{" +
-                "image_Id=" + image_Id +
-                ", path='" + path + '\'' +
-                ", alternative='" + alternative + '\'' +
-                ", product=" + product +
-                '}';
+        return "ProductImage [image_id=" + image_id + ", path=" + path + ", alternative=" + alternative + ", product="
+                + product + "]";
     }
+
 }

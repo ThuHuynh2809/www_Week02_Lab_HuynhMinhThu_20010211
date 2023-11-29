@@ -11,7 +11,7 @@
     <title>Index</title>
 </head>
 <body>
-<a href="InsertEmp.jsp">Insert new Employee</a><br/>
-<a href="InsertCust.jsp">Insert new Customer</a><br/>
+<a href="controls?action=emp_List">Employee Listing</a><br/>
+<a href="controls?action=cust_List">Customer Listing</a><br/>
 </body>
 </html>

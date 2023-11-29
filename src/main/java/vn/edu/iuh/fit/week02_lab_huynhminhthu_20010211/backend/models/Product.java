@@ -3,53 +3,78 @@ package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.ProductStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "product")
+@NamedQueries(value = {
+        @NamedQuery(name = "Product.findAll", query = "select p from Product p where p.status = ?1"),
+        @NamedQuery(name = "Product.findById", query = "select p from Product p where p.product_id = ?1")
+})
+@Table(name = "products")
 public class Product {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private long productId;
-    @Column(name = "name", length = 250, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(columnDefinition = "varchar(150)")
     private String name;
-    @Column(name = "description", length = 250, nullable = false)
+
+    @Column(name = "description", columnDefinition = "varchar(250)")
     private String description;
-    @Column(name = "unit", length = 250, nullable = false)
+
+    @Column(columnDefinition = "varchar(25)")
     private String unit;
-    @Column(name = "manufacturer_name", length = 250, nullable = false)
-    private String manufacturer_name;
-    @Column(name = "status", nullable = false)
+
+    @Column(name = "manufacturer_name", columnDefinition = "varchar(100)")
+    private String manufacturer;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "int")
     private ProductStatus status;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    @JoinColumn
-    private List<ProductImage> productImageList;
+    // RELATIONSHIP
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JoinColumn
-    private List<ProductPrice> productPrices;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    @JoinColumn
-    private List<OrderDetail> orderDetails;
+    private List<ProductImage> productImages = new ArrayList<>();
 
-    public Product(){
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductPrice> productPrices = new ArrayList<>();
+
+    public Product() {
     }
-    public Product(String name, String description, String unit, String manufacturer_name, ProductStatus status){
+
+    public Product(long id, String name, String description, String unit, String manufacturer, ProductStatus status) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.unit = unit;
-        this.manufacturer_name = manufacturer_name;
+        this.manufacturer = manufacturer;
         this.status = status;
     }
 
-    public long getProductId() {
-        return productId;
+    public Product(String name, String description, String unit, String manufacturer, ProductStatus status) {
+        this.name = name;
+        this.description = description;
+        this.unit = unit;
+        this.manufacturer = manufacturer;
+        this.status = status;
     }
 
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public List<ProductImage> getProductImageList() {
+        return productImages;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -68,13 +93,6 @@ public class Product {
         this.description = description;
     }
 
-    public ProductStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ProductStatus status) {
-        this.status = status;
-    }
     public String getUnit() {
         return unit;
     }
@@ -83,47 +101,32 @@ public class Product {
         this.unit = unit;
     }
 
-    public String getManufacturer_name() {
-        return manufacturer_name;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacturer_name(String manufacturer_name) {
-        this.manufacturer_name = manufacturer_name;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
+    public ProductStatus getStatus() {
+        return status;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<ProductImage> getProductImageList() {
-        return productImageList;
-    }
-
-    public void setProductImageList(List<ProductImage> productImageList) {
-        this.productImageList = productImageList;
-    }
-
-    public List<ProductPrice> getProductPrices() {
-        return productPrices;
-    }
-
-    public void setProductPrices(List<ProductPrice> productPrices) {
-        this.productPrices = productPrices;
+    public void setStatus(ProductStatus status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "productId=" + productId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", unit='" + unit + '\'' +
-                ", manufacturer_name='" + manufacturer_name + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
                 ", status=" + status +
                 '}';
     }
+
 }

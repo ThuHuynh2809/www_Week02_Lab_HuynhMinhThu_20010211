@@ -1,62 +1,87 @@
 package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private long order_Id;
-    @Column(name = "order_date", nullable = false)
-    @JsonFormat(shape =JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate orderDate;
+    private Long id;
+
+    @Column(name = "order_date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "emp_id", nullable = false)
+    @JoinColumn(name = "emp_id")
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "cust_id", nullable = false)
+    @JoinColumn(name = "cust_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
-    public Order(){
-
+    public Order() {
     }
 
-    public Order(long order_Id, LocalDate orderDate, Employee employee, Customer customer, List<OrderDetail> orderDetails) {
-        this.order_Id = order_Id;
+    public Order(LocalDateTime orderDate, Employee employee, Customer customer) {
         this.orderDate = orderDate;
         this.employee = employee;
         this.customer = customer;
-        this.orderDetails = orderDetails;
     }
 
-    public long getOrder_Id() {
-        return order_Id;
+    public Order(long id, LocalDateTime orderDate, Employee employee, Customer customer) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.employee = employee;
+        this.customer = customer;
     }
 
-    public void setOrder_Id(long order_Id) {
-        this.order_Id = order_Id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Order))
+            return false;
+        Order order = (Order) o;
+        return Objects.equals(employee, order.employee) && Objects.equals(customer, order.customer);
+
     }
 
-    public LocalDate getOrderDate() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(employee, customer);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -76,22 +101,14 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
     @Override
     public String toString() {
-        return "Order{" +
-                "order_Id=" + order_Id +
+        return "Orders{" +
+                "id=" + id +
                 ", orderDate=" + orderDate +
                 ", employee=" + employee +
                 ", customer=" + customer +
-                ", orderDetails=" + orderDetails +
                 '}';
     }
+
 }

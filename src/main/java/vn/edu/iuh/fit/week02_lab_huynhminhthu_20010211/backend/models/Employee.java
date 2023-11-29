@@ -1,72 +1,99 @@
 package vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
-import org.joda.time.LocalDate;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Entity
-@Table(name = "employee")
+@Table(name = "employees")
+@NamedQueries({
+        @NamedQuery(name = "Employee.findAll", query = "select e from Employee e"),
+        @NamedQuery(name = "Employee.findById", query = "select e from Employee e where e.id=:id")
+})
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "emp_id")
-    private long empId;
-    @Column(name = "full_name", length = 100, nullable = false)
-    private String fullName;
-    @Column(name = "dob", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate dob;
-    @Column(name ="email", length = 150, unique = true)
-    private String email;
-    @Column(name = "phone", length = 20, nullable = false)
-    private String phone;
-    @Column(name = "address", length = 250, nullable = false)
+    @Column(name = "emp_id", columnDefinition = "bigint(20)")
+    private Long id;
+
+    @Column(name = "address", columnDefinition = "varchar(250)")
     private String address;
-    @Column(name = "status", nullable = false)
+
+    @Column(name = "dob")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime dob;
+
+    @Column(name = "email", columnDefinition = "varchar(150)")
+    private String email;
+
+    @Column(name = "full_name", columnDefinition = "varchar(150)")
+    private String fullName;
+
+    @Column(name = "phone", columnDefinition = "varchar(15)")
+    private String phone;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(columnDefinition = "int")
     private EmployeeStatus status;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "employee")
+    private List<Order> listOrder;
 
-    public Employee(String name, java.time.LocalDate dob, String email, String phone, String address, EmployeeStatus status){
-
+    public Employee() {
     }
-    public Employee(String fullName, LocalDate dob, String email, String phone, String address, EmployeeStatus status){
-        this.fullName = fullName;
+
+    public Employee(Long id, String address, LocalDateTime dob, String email, String fullName, String phone,
+                    EmployeeStatus status) {
+        this.id = id;
+        this.address = address;
         this.dob = dob;
         this.email = email;
+        this.fullName = fullName;
         this.phone = phone;
-        this.address = address;
         this.status = status;
     }
 
-    public long getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(long empId) {
-        this.empId = empId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
+    public Employee(String address, LocalDateTime dob, String email, String fullName, String phone,
+                    EmployeeStatus status) {
+        this.address = address;
+        this.dob = dob;
+        this.email = email;
         this.fullName = fullName;
+        this.phone = phone;
+        this.status = status;
     }
 
-    public LocalDate getDob() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDateTime getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(LocalDateTime dob) {
         this.dob = dob;
     }
 
@@ -78,20 +105,20 @@ public class Employee {
         this.email = email;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public EmployeeStatus getStatus() {
@@ -102,25 +129,16 @@ public class Employee {
         this.status = status;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
-                "empId=" + empId +
-                ", fullName='" + fullName + '\'' +
+                "id=" + id +
+                ", address='" + address + '\'' +
                 ", dob=" + dob +
                 ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
                 ", status=" + status +
                 '}';
     }
 }
-
