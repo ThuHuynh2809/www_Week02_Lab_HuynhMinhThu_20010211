@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.week02_lab_huynhminhthu_20010211.backend.enums.EmployeeStatus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -31,7 +31,7 @@ public class Employee {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime dob;
+    private LocalDate dob;
 
     @Column(name = "email", columnDefinition = "varchar(150)")
     private String email;
@@ -52,18 +52,18 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long id, String address, LocalDateTime dob, String email, String fullName, String phone,
-                    EmployeeStatus status) {
-        this.id = id;
-        this.address = address;
-        this.dob = dob;
-        this.email = email;
-        this.fullName = fullName;
-        this.phone = phone;
-        this.status = status;
-    }
+//    public Employee(Long id, String address, LocalDate dob, String email, String fullName, String phone,
+//                    EmployeeStatus status) {
+//        this.id = id;
+//        this.address = address;
+//        this.dob = dob;
+//        this.email = email;
+//        this.fullName = fullName;
+//        this.phone = phone;
+//        this.status = status;
+//    }
 
-    public Employee(String address, LocalDateTime dob, String email, String fullName, String phone,
+    public Employee(String address, LocalDate dob, String email, String fullName, String phone,
                     EmployeeStatus status) {
         this.address = address;
         this.dob = dob;
@@ -89,11 +89,11 @@ public class Employee {
         this.address = address;
     }
 
-    public LocalDateTime getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(LocalDateTime dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

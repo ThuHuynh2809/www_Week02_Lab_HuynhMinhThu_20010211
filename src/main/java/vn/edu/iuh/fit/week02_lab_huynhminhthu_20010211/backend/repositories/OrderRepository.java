@@ -100,12 +100,12 @@ public class OrderRepository {
                 case "orderDate":
                     orders.setOrderDate(LocalDateTime.parse(newValue));
                     break;
-                case "employee":
-                    orders.setEmployee(employeeDao.searchById(Long.parseLong(newValue)));
-                    break;
-                case "customer":
-                    orders.setCustomer(customerDao.searchById(Long.parseLong(newValue)));
-                    break;
+//                case "employee":
+//                    orders.setEmployee(employeeDao.findbyId(Long.parseLong(newValue)));
+//                    break;
+//                case "customer":
+//                    orders.setCustomer(customerDao.getAll(Long.parseLong(newValue)));
+//                    break;
 
             }
             tr.commit();

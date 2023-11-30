@@ -11,7 +11,7 @@ public class EmployeeStatusConverter implements
             if (attribute == null) {
                 return null;
             }
-            return attribute.getValue();
+            return attribute.getValues();
         }
         @Override
         public EmployeeStatus convertToEntityAttribute(Integer dbData) {
@@ -19,7 +19,7 @@ public class EmployeeStatusConverter implements
                 return null;
             }
             return Stream.of(EmployeeStatus.values())
-                    .filter(c -> c.getValue() == dbData)
+                    .filter(c -> c.getValues() == dbData)
                     .findFirst()
                     .orElseThrow(IllegalArgumentException::new);
         }
